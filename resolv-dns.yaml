@@ -4,4 +4,4 @@
 - name: DNS Resolv.conf
   hosts: all
   roles:
-    - role: "ahuffman.resolv"
+    - role: ansible-resolv
