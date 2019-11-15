@@ -5,9 +5,3 @@
   hosts: all
   roles:
     - role: "ahuffman.resolv"
-      resolv_nameservers:
-        - "8.8.8.8"
-        - "8.8.4.4"
-      resolv_options:
-        - "timeout:2"
-        - "rotate"
