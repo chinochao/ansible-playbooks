@@ -1,0 +1,7 @@
+---
+# This Playbook configured sssd using ansible-sssd-ldap role
+
+- name: SSSD Config
+  hosts: all
+  roles:
+    - role: ansible-sssd-ldap
