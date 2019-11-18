@@ -1,3 +1,6 @@
 [submodule "roles/ansible-resolv"]
 	path = roles/ansible-resolv
 	url = git@github.com:ahuffman/ansible-resolv.git
+[submodule "roles/ansible-sssd-ldap"]
+	path = roles/ansible-sssd-ldap
+	url = git@github.com:hellofresh/ansible-sssd-ldap.git
