@@ -1,0 +1,9 @@
+---
+# This Playbook configured resolv.conf using ansble-resolv role
+
+- name: Sensu Install Docker
+  hosts: all
+  vars:
+    - docker_apt_arch: armhf
+  roles:
+    - role: ansible-role-docker
