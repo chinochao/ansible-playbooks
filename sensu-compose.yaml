@@ -1,0 +1,44 @@
+---
+    # This Playbook configured Sensu Master
+    
+    - name: Sensu Install Docker
+      hosts: all
+
+      tasks:
+        - name: Run with inline v2 compose
+          hosts: localhost
+          gather_facts: no
+          tasks:
+              - docker_compose:
+                  project_name: sensu
+                  definition:
+                    version: '2'
+                    services:
+                        sensu-master:
+                          image: sensu/sensu:latest
+                          command: sensu-backend start --etcd-listen-client-urls http://0.0.0.0:2379 --etcd-name {{ansible_hostname}} --etcd-advertise-client-urls http://{{ansible_host}}:2379 --etcd-initial-cluster sensu01=http://192.168.2.11:2380,sensu02=http://192.168.2.12:2380,sensu03=http://192.168.2.13:2380 --etcd-initial-cluster-state new --etcd-initial-advertise-peer-urls http://{{ansible_hostname}}:2380 --state-dir /var/lib/sensu/sensu-backend/etcd1 --etcd-listen-peer-urls http://0.0.0.0:2380 --log-level debug --debug
+                          hostname: "{{ansible_hostname}}"
+                          restart: always
+                          ports:
+                            - "2379:2379"
+                            - "2380:2380"
+                            - "8080:8080"
+                            - "8081:8081"
+                            - "6060:6060"
+                            - "3000:3000"
+                        sensu-agent:
+                          image: sensu/sensu:latest
+                          command: sensu-agent start --backend-url ws://192.168.2.11:8081,ws://192.168.2.12:8081,ws://192.168.2.13:8081 --subscriptions switches --log-level warn --keepalive-interval 5 --keepalive-timeout 10
+                          hostname: "{{ansible_hostname}}"
+                          restart: always
+                          depends_on:
+                            - sensu-master
+              register: output
+
+              - debug:
+                  var: output
+
+              - assert:
+                  that:
+                  - "sensu-master.sensu_sensu-master_1.state.running"
+                  - "sensu-agent.sensu_sensu-agent_1.state.running"

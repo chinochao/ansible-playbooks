@@ -1,5 +1,5 @@
 ---
-# This Playbook configured resolv.conf using ansble-resolv role
+# This Playbook configured Docker using ansble-role-docker role
 
 - name: Sensu Install Docker
   hosts: all
