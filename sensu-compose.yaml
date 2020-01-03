@@ -33,7 +33,7 @@
                           restart: always
                           depends_on:
                             - sensu-master
-              register: output
+                register: output
 
               - debug:
                   var: output
