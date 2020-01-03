@@ -5,6 +5,11 @@
       hosts: all
 
       tasks:
+        - name: Requirements Pkgs
+          package:
+            name: python3-docker
+            state: latest
+
         - docker_compose:
             project_name: sensu
             definition:
