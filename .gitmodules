@@ -4,3 +4,6 @@
 [submodule "roles/ansible-sssd-ldap"]
 	path = roles/ansible-sssd-ldap
 	url = git@github.com:hellofresh/ansible-sssd-ldap.git
+[submodule "roles/ansible-role-docker"]
+	path = roles/ansible-role-docker
+	url = git@github.com:geerlingguy/ansible-role-docker.git
