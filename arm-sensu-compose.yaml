@@ -10,6 +10,11 @@
             name: 
               - python3-pip
               - python3-setuptools
+              - python3-dev
+              - build-essential 
+              - libssl-dev 
+              - libffi-dev
+              - python3-wheel
             state: latest
 
         - name: Pip Pkgs
