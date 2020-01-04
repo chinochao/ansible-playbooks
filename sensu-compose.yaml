@@ -7,8 +7,11 @@
       tasks:
         - name: Requirements Pkgs
           package:
-            name: python3-docker
+            name: python3-pip
             state: latest
+
+        - pip:
+            name: docker-compose
 
         - docker_compose:
             project_name: sensu
