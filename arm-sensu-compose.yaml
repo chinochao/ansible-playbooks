@@ -45,7 +45,7 @@
                     hostname: "{{ansible_hostname}}"
                     restart: always
                     depends_on:
-                      - sensu-master
+                      - master
           register: output
 
         - debug:
