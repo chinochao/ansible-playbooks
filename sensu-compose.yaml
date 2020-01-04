@@ -7,7 +7,9 @@
       tasks:
         - name: Requirements Pkgs
           package:
-            name: python3-pip
+            name: 
+              - python3-pip
+              - python3-setuptools
             state: latest
 
         - name: Pip Pkgs
