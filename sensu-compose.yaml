@@ -14,8 +14,7 @@
         - name: Pip Pkgs
           pip:
             name:
-              name:
-                - docker-compose
+              - docker-compose
 =======
         - pip:
             name: docker-compose
