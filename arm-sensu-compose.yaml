@@ -1,5 +1,5 @@
 ---
-    # This Playbook configured Sensu Master
+    # This Playbook configured Sensu Master and Agent
     
     - name: Sensu Install Docker
       hosts: all
