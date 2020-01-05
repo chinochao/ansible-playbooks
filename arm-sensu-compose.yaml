@@ -28,7 +28,7 @@
               version: '2'
               services:
                   master:
-                    image: sensu/sensu:5.15.0
+                    image: chaudric/sensu:5.16.1
                     command: sensu-backend start --etcd-listen-client-urls http://0.0.0.0:2379 --etcd-name {{ansible_hostname}} --etcd-advertise-client-urls http://{{ansible_host}}:2379 --etcd-initial-cluster sensu01=http://192.168.2.11:2380,sensu02=http://192.168.2.12:2380,sensu03=http://192.168.2.13:2380 --etcd-initial-cluster-state new --etcd-initial-advertise-peer-urls http://{{ansible_hostname}}:2380 --state-dir /var/lib/sensu/sensu-backend/etcd1 --etcd-listen-peer-urls http://0.0.0.0:2380 --log-level debug --debug
                     hostname: "{{ansible_hostname}}"
                     restart: always
@@ -40,7 +40,7 @@
                       - "6060:6060"
                       - "3000:3000"
                   agent:
-                    image: sensu/sensu:5.15.0
+                    image: chaudric/sensu:5.16.1
                     command: sensu-agent start --backend-url ws://192.168.2.11:8081,ws://192.168.2.12:8081,ws://192.168.2.13:8081 --subscriptions switches --log-level warn --keepalive-interval 5 --keepalive-timeout 10
                     hostname: "{{ansible_hostname}}"
                     restart: always
