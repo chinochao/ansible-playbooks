@@ -39,7 +39,7 @@
               services:
                   master:
                     image: chaudric/sensu:5.16.1
-                    command: sensu-backend start --etcd-listen-client-urls http://0.0.0.0:2379 --etcd-name {{ansible_hostname}} --etcd-advertise-client-urls http://{{ansible_host}}:2379 --etcd-initial-cluster sensu01=http://192.168.2.11:2380,sensu02=http://192.168.2.12:2380,sensu03=http://192.168.2.13:2380 --etcd-initial-cluster-state new --etcd-initial-advertise-peer-urls http://{{ansible_hostname}}:2380 --state-dir /var/sensu/sensu-backend --etcd-listen-peer-urls http://0.0.0.0:2380 --log-level debug --debug
+                    command: sensu-backend start --etcd-listen-client-urls http://0.0.0.0:2379 --etcd-name {{ansible_hostname}} --etcd-advertise-client-urls http://{{ ansible_default_ipv4.address }}:2379 --etcd-initial-cluster sensu01=http://192.168.2.11:2380,sensu02=http://192.168.2.12:2380,sensu03=http://192.168.2.13:2380 --etcd-initial-cluster-state new --etcd-initial-advertise-peer-urls http://{{ansible_hostname}}:2380 --state-dir /var/sensu/sensu-backend --etcd-listen-peer-urls http://0.0.0.0:2380 --log-level debug --debug
                     hostname: "{{ansible_hostname}}"
                     volumes:
                       - "/root/backend:/var/sensu/sensu-backend"
@@ -55,8 +55,9 @@
                     image: chaudric/sensu:5.16.1
                     command: sensu-agent start --backend-url ws://192.168.2.11:8081,ws://192.168.2.12:8081,ws://192.168.2.13:8081 --subscriptions switches --log-level warn --keepalive-interval 5 --keepalive-timeout 10
                     hostname: "{{ansible_hostname}}"
-                    volumes:
-                      - "/root/agent:/var/sensu/sensu-agent"
+                    privileged: true
+                    pid: host
+                    net: host
                     restart: always
                     depends_on:
                       - master
@@ -69,3 +70,6 @@
             that:
             - "master.sensu_master_1.state.running"
             - "agent.sensu_agent_1.state.running"
+
+            # TO add to agent to monitor the host instead
+            # docker run -it --rm --privileged --pid=host --net=host alpine /bin/sh
