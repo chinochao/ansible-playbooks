@@ -58,7 +58,6 @@
                     hostname: "{{ansible_hostname}}"
                     privileged: true
                     pid: host
-                    net: host
                     restart: always
                     depends_on:
                       - master
