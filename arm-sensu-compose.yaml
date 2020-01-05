@@ -71,6 +71,3 @@
             that:
             - "master.sensu_master_1.state.running"
             - "agent.sensu_agent_1.state.running"
-
-            # TO add to agent to monitor the host instead
-            # docker run -it --rm --privileged --pid=host --net=host alpine /bin/sh
