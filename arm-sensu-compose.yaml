@@ -34,7 +34,7 @@
 
         - docker_compose:
             project_name: sensu
-            state: absent
+            state: present
             definition:
               version: '2'
               services:
