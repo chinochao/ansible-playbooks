@@ -54,7 +54,7 @@
                       - "3000:3000"
                   agent:
                     image: chaudric/sensu:5.16.1
-                    command: sensu-agent start --backend-url ws://192.168.2.11:8081,ws://192.168.2.12:8081,ws://192.168.2.13:8081 --subscriptions switches --log-level warn --keepalive-interval 5 --keepalive-timeout 10
+                    command: sensu-agent start --backend-url ws://192.168.2.11:8081,ws://192.168.2.12:8081,ws://192.168.2.13:8081 --subscriptions system --log-level warn --keepalive-interval 5 --keepalive-timeout 10
                     hostname: "{{ansible_hostname}}"
                     privileged: true
                     pid: host
