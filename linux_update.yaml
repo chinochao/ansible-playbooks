@@ -1,0 +1,44 @@
+---    
+- hosts: all
+  tasks:
+
+  - name: Create a group of all hosts by operating system
+    group_by: key={{ansible_distribution_file_variety}}
+
+# the following host group does not exist in inventory and was created by the group_by
+# module.
+
+- hosts: RedHat
+  tasks:
+  - name: Install updates
+    yum:
+      name: '*'
+      update_cache: yes
+      state: latest
+    register: rpm_install
+  - name: Get installed and updated packages
+    shell: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" |cut -f 1 -d " "
+    register: rpm_result
+    args:
+      warn: no
+    when: rpm_install.changed
+  - name: Show installed and updated packages
+    debug: msg="{{ rpm_result.stdout_lines }}"
+    when: rpm_install.changed
+
+- hosts: Debian
+  tasks:
+  - name: Install updates
+    apt:
+      upgrade: dist
+      update_cache: yes
+      autoremove: yes
+      autoclean: yes
+    register: deb_install
+  - name: Get installed and updated packages
+    shell: grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
+    register: deb_result
+    when: deb_install.changed
+  - name: Show installed and updated packages
+    debug: msg="{{ deb_result.stdout_lines }}"
+    when: deb_install.changed
