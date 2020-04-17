@@ -7,3 +7,6 @@
 [submodule "roles/ansible-role-docker"]
 	path = roles/ansible-role-docker
 	url = git@github.com:geerlingguy/ansible-role-docker.git
+[submodule "roles/ansible-freeipa-client"]
+	path = roles/ansible-freeipa-client
+	url = git@github.com:alvaroaleman/ansible-freeipa-client.git
