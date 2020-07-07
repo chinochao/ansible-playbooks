@@ -1,9 +1,0 @@
----
-# This Playbook configured Docker using ansble-role-docker role
-
-- name: Sensu Install Docker
-  hosts: all
-  vars:
-    - docker_apt_arch: armhf
-  roles:
-    - role: ansible-role-docker
